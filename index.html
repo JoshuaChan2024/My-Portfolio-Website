@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Joshua Chan | Full Stack Developer</title>
+<style>
+/* FONT: Lagu Sans. Install it locally, or host the files next to this page and keep the url() lines. */
+@font-face{font-family:"Lagu Sans";font-weight:600;src:local("Lagu Sans SemiBold"),url("fonts/LaguSans-SemiBold.woff2") format("woff2")}
+@font-face{font-family:"Lagu Sans";font-weight:900;src:local("Lagu Sans Black"),url("fonts/LaguSans-Black.woff2") format("woff2")}
+:root{--bg:#fbf9fd;--sf:#fff;--ink:#1b1224;--mu:#5b5068;--ln:#e3d9ec;--p:#8a0bb8;--g:#5f7a0a;--b1:#7a0aa8;--b2:#5f7a0a;--bl:.28;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f0a15;--sf:#181122;--ink:#f3eefa;--mu:#b8accb;--ln:#2c2239;--p:#d08cff;--g:#b4dc3a;--bl:.4;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f0a15;--sf:#181122;--ink:#f3eefa;--mu:#b8accb;--ln:#2c2239;--p:#d08cff;--g:#b4dc3a;--bl:.4;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{margin:0;background:var(--bg);color:var(--ink);font:600 1.0625rem/1.65 "Lagu Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3{font-weight:900;line-height:1.1;margin:0}
+p{margin:0 0 1em;max-width:62ch}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--p);outline-offset:3px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+/* Ambient animated background */
+.amb{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.amb i{position:absolute;width:46vmax;height:46vmax;border-radius:50%;filter:blur(90px);opacity:var(--bl);animation:dr 26s ease-in-out infinite alternate}
+.amb i:nth-child(1){background:#9b0acb;top:-12vmax;left:-10vmax}
+.amb i:nth-child(2){background:#8fb80f;bottom:-16vmax;right:-12vmax;animation-delay:-9s}
+.amb i:nth-child(3){background:#c77dff;top:35%;left:40%;width:30vmax;height:30vmax;animation-delay:-16s}
+@keyframes dr{to{transform:translate(12vmax,8vmax) scale(1.2)}}
+#trail{position:fixed;inset:0;pointer-events:none;z-index:100}
+/* Nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;display:flex;align-items:center;gap:1rem;padding:.7rem clamp(1rem,4vw,3rem);background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--ln)}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;font-weight:900;margin-right:auto}
+.logo b{font-size:1.5rem;color:var(--p);border-bottom:4px solid var(--g);line-height:1}
+nav a.l{text-decoration:none;padding:.4rem .7rem;border-radius:99px}
+nav a.l:hover{color:var(--p)}
+/* Buttons: expand + gradient flow on hover */
+.btn{display:inline-block;font:inherit;font-weight:900;color:var(--ink);background:var(--sf);border:2px solid var(--ln);padding:.55rem 1.2rem;border-radius:99px;cursor:pointer;text-decoration:none;transition:transform .25s,border-color .25s}
+.btn.pri{background:var(--b1);border-color:var(--b1);color:#fff}
+.btn:hover,.btn:focus-visible{transform:scale(1.08);color:#fff;border-color:transparent;background:linear-gradient(90deg,var(--b1),var(--b2),var(--b1));background-size:200% 100%;animation:fl 1.4s linear infinite}
+@keyframes fl{to{background-position:-200% 0}}
+main,#proj,footer{max-width:1080px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+section{padding:4.5rem 0 1rem}
+h2{font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:1.4rem}
+/* Hero */
+#home{display:grid;grid-template-columns:1.2fr 1fr;gap:2.5rem;align-items:center;min-height:78vh;padding-top:2rem}
+h1{font-size:clamp(2.6rem,7vw,4.6rem)}
+h1 span{color:var(--p)}
+.sub{color:var(--mu);font-size:1.2rem;margin:1rem 0 1.6rem}
+.row{display:flex;gap:.7rem;flex-wrap:wrap}
+.photo{aspect-ratio:4/5;border-radius:2rem 2rem 2rem .5rem;overflow:hidden;background:linear-gradient(135deg,var(--b1),var(--b2));display:grid;place-items:center;color:#fff;text-align:center;padding:1rem}
+.photo img,.im img{width:100%;height:100%;object-fit:cover;display:block}
+/* Dashboard + cards */
+.dash{display:flex;align-items:baseline;gap:1rem;padding:1.2rem 1.6rem;border-radius:1.2rem;background:var(--sf);border:1px solid var(--ln);margin-bottom:1.2rem}
+.dash b{font-size:3.2rem;font-weight:900;color:var(--p);line-height:1}
+.tools{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.2rem}
+.tools input{flex:1;min-width:12rem;font:inherit;color:var(--ink);background:var(--sf);border:2px solid var(--ln);border-radius:99px;padding:.5rem 1.1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:1.2rem}
+.grid.list{grid-template-columns:1fr}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:1.2rem;overflow:hidden;display:flex;flex-direction:column}
+.list .card{flex-direction:row}.list .im{width:14rem;aspect-ratio:auto}
+.im{aspect-ratio:16/10;background:linear-gradient(135deg,var(--b1),var(--b2));display:grid;place-items:center;color:#fff;font-weight:900;font-size:1.3rem;overflow:hidden}
+.cb{padding:1.1rem;display:flex;flex-direction:column;gap:.6rem;flex:1;align-items:flex-start}
+.cb h3{font-size:1.3rem}.cb p{color:var(--mu);font-size:.97rem;margin:0}
+.tags{display:flex;gap:.4rem;flex-wrap:wrap}
+.tag{font-size:.82rem;padding:.1rem .7rem;border-radius:99px;background:color-mix(in srgb,var(--p) 14%,transparent);color:var(--p)}
+.cb .btn{margin-top:auto}
+/* About */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.box{background:var(--sf);border:1px solid var(--ln);border-radius:1.2rem;padding:1.3rem}
+.box h3{margin-bottom:.8rem;font-size:1.25rem}
+.box ul{margin:0;padding-left:1.1rem}.box li{margin-bottom:.5rem}
+.box small,.sm{color:var(--mu);font-size:.92rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chips span{padding:.25rem .8rem;border-radius:.7rem;background:var(--bg);border:1px solid var(--ln);font-size:.92rem}
+.tl{border-left:3px solid var(--g);padding-left:1rem;margin-bottom:1rem}
+.tl b{display:block}
+/* Contact */
+form{display:grid;gap:.8rem;max-width:34rem}
+form input,form textarea{font:inherit;color:var(--ink);background:var(--sf);border:2px solid var(--ln);border-radius:1rem;padding:.7rem 1rem;width:100%}
+footer{padding:3rem 1rem;text-align:center;color:var(--mu)}
+/* Project page */
+#proj{padding-top:2.5rem;padding-bottom:2rem}
+#proj .im{aspect-ratio:16/8;border-radius:1.2rem;margin:1.2rem 0 1.8rem}
+#proj h2{margin:1rem 0 .6rem}
+@media(max-width:760px){#home,.two{grid-template-columns:1fr}.photo{max-width:20rem}nav a.l{padding:.4rem .4rem;font-size:.95rem}.logo span{display:none}.list .card{flex-direction:column}.list .im{width:100%;aspect-ratio:16/10}}
+@media(prefers-reduced-motion:reduce){.amb i,.btn:hover{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="amb" aria-hidden="true"><i></i><i></i><i></i></div>
+<canvas id="trail" aria-hidden="true"></canvas>
+<nav aria-label="Main">
+  <!-- LOGO: to use your logo image instead, replace the <b>PD</b> with <img src="logo.png" alt="" height="36"> -->
+  <a class="logo" href="#home"><b>PD</b><span>Joshua Chan</span></a>
+  <a class="l" href="#home">Home</a><a class="l" href="#projects">Projects</a><a class="l" href="#about">About</a><a class="l" href="#contact">Contact</a>
+  <button class="btn" id="tg" type="button" aria-label="Switch between light and dark mode">Theme</button>
+</nav>
+
+<main id="main">
+  <section id="home">
+    <div>
+      <h1>Hi, I’m <span>Joshua</span> Chan.</h1>
+      <p class="sub">Freelance full stack developer. I build web apps from database to interface.</p>
+      <div class="row"><a class="btn pri" href="#projects">View my work</a><a class="btn" href="#about">About me</a></div>
+    </div>
+    <div class="photo" id="photo"></div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="dash"><b id="cnt">0</b><span>projects showcased</span></div>
+    <div class="tools">
+      <input id="q" type="search" placeholder="Search by project name or tag" aria-label="Search projects">
+      <button class="btn" id="gv" type="button">Change grid</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="about">
+    <h2>About me</h2>
+    <div class="two">
+      <div class="box">
+        <h3>Hi, I’m Chan Jia Xi Joshua</h3>
+        <!-- EDIT: your bio. Each <p> is one paragraph. -->
+        <p>I’m a second-year Diploma in Information Technology student specializing in Full Stack Development. My passion for technology drives me to explore how software and web applications come together behind the scenes.</p>
+        <p>I’m constantly eager to sharpen my skills, tackle new frameworks, and grow through practical project work.</p>
+      </div>
+      <div class="box"><h3>Skills</h3><div class="chips" id="skills"></div></div>
+      <div class="box"><h3>Education journey</h3><div id="edu"></div></div>
+      <div class="box"><h3>Work experience</h3><div id="work"></div></div>
+      <div class="box"><h3>Certifications</h3><ul id="certs"></ul></div>
+      <div class="box"><h3>Activities</h3><ul id="acts"></ul></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Send me a message. It opens in your email app, addressed to me.</p>
+    <form id="cf">
+      <input id="cn" placeholder="Your name" aria-label="Your name" required>
+      <input id="ce" type="email" placeholder="Your email" aria-label="Your email" required>
+      <textarea id="cm" rows="5" placeholder="Your message" aria-label="Your message" required></textarea>
+      <button class="btn pri" type="submit" style="justify-self:start">Send message</button>
+    </form>
+    <div class="row" id="soc" style="margin-top:1.6rem"></div>
+  </section>
+</main>
+
+<div id="proj" hidden></div>
+<footer>© 2026 Chan Jia Xi Joshua</footer>
+
+<script>
+/* ============ EDIT YOUR CONTENT HERE ============ */
+const EMAIL = "your.email@example.com";           // messages from the contact form go here
+const PHOTO = "";                                  // your identity photo, e.g. "images/me.jpg" ("" shows a placeholder)
+const SOCIALS = [                                  // social links: change the URLs
+  ["Instagram","https://instagram.com/YOUR_HANDLE"],
+  ["LinkedIn","https://linkedin.com/in/YOUR_HANDLE"],
+  ["GitHub","https://github.com/YOUR_USERNAME"],
+];
+/* ADD A PROJECT: copy one block below, give it a new unique id (letters, digits, hyphens only).
+   The dashboard count and the project page update on their own. */
+const PROJECTS = [
+  { id:"spinawheel", title:"SpinAWheel", img:"",   // img: "images/spinawheel.png"
+    desc:"A customizable wheel that picks a random option.",
+    tags:["JavaScript","CSS","Vibecoded"],
+    write:["Replace this with your write-up: what the project does, why you built it and what you learned.","Add as many paragraphs as you like."],
+    tools:["JavaScript","CSS","HTML"], repo:"https://github.com/YOUR_USERNAME/SpinAWheel" },
+  { id:"project-2", title:"Project 2", img:"", desc:"Description of the showcased project.", tags:["Tag"],
+    write:["Write-up goes here."], tools:["Tool"], repo:"https://github.com/YOUR_USERNAME/REPO" },
+  { id:"project-3", title:"Project 3", img:"", desc:"Description of the showcased project.", tags:["Tag"],
+    write:["Write-up goes here."], tools:["Tool"], repo:"https://github.com/YOUR_USERNAME/REPO" },
+  { id:"project-4", title:"Project 4", img:"", desc:"Description of the showcased project.", tags:["Tag"],
+    write:["Write-up goes here."], tools:["Tool"], repo:"https://github.com/YOUR_USERNAME/REPO" },
+  { id:"project-5", title:"Project 5", img:"", desc:"Description of the showcased project.", tags:["Tag"],
+    write:["Write-up goes here."], tools:["Tool"], repo:"https://github.com/YOUR_USERNAME/REPO" },
+];
+const SKILLS = ["Python","JavaScript","MySQL","Node.js","Express.js","React","React Native","Figma","Blender","SourceFilmmaker","Paint.NET","Adobe Premiere","Adobe Photoshop","Adobe Illustrator","Claude"];
+/* EDUCATION JOURNEY: add a line per school: [school, qualification, years] */
+const EDU = [
+  ["Xinmin Secondary School","GCE Normal (Technical) Level","2018 – 2021"],
+  ["Institute of Technical Education","Higher Nitec in IT Applications Development (3 years)","2022 – 2025"],
+  ["Republic Polytechnic","Diploma in Information Technology","2025 – present"],
+];
+const WORK = [["ST Engineering (Intern)","Monitored project timelines and deliverables using project management software, ensuring adherence to deadlines.","2023 – 2024"]];
+const CERTS = ["Edusave Scholarship 2018","Xinmin Secondary School Certificate of Excellence 2019 (1st in Mathematics, 1st in Computer Applications, Holistic Achievement Award)","Edusave Scholarship 2019"];
+const ACTS = ["Chingay 2026 Community Arts Project (Community Float)","Sensory Theatre: FOH crew for TRCC Black Box","Food packing for the underprivileged, Care Community Services Society","Break-of-Fast event, Nee Soon GRC","Be a Digital Buddy: helping seniors plan itineraries with ChatGPT"];
+/* ============ END OF EDITABLE CONTENT ============ */
+
+const $ = id => document.getElementById(id);
+const im = (src,label) => src ? `<img src="${src}" alt="${label}">` : `<span>${label}</span>`;
+$("photo").innerHTML = im(PHOTO,"Add your photo");
+$("cnt").textContent = PROJECTS.length;
+$("skills").innerHTML = SKILLS.map(s=>`<span>${s}</span>`).join("");
+const tl = a => a.map(([t,d,y])=>`<div class="tl"><b>${t}</b><span class="sm">${d}</span><br><span class="sm">${y}</span></div>`).join("");
+$("edu").innerHTML = tl(EDU); $("work").innerHTML = tl(WORK);
+$("certs").innerHTML = CERTS.map(c=>`<li>${c}</li>`).join("");
+$("acts").innerHTML = ACTS.map(c=>`<li>${c}</li>`).join("");
+$("soc").innerHTML = SOCIALS.map(([n,u])=>`<a class="btn" href="${u}" target="_blank" rel="noopener">${n}</a>`).join("") + `<a class="btn" href="mailto:${EMAIL}">Email</a>`;
+
+const tags = t => `<div class="tags">${t.map(x=>`<span class="tag">${x}</span>`).join("")}</div>`;
+function draw(list){
+  $("grid").innerHTML = list.length ? list.map(p=>`<article class="card"><div class="im">${im(p.img,p.title)}</div><div class="cb"><h3>${p.title}</h3><p>${p.desc}</p>${tags(p.tags)}<a class="btn" href="#project-${p.id}">View</a></div></article>`).join("") : "<p>No projects match that search.</p>";
+}
+draw(PROJECTS);
+$("q").oninput = e => { const v = e.target.value.toLowerCase(); draw(PROJECTS.filter(p=>(p.title+p.tags.join(" ")).toLowerCase().includes(v))); };
+$("gv").onclick = () => $("grid").classList.toggle("list");
+
+function showProject(p){
+  $("proj").innerHTML = `<a class="btn" href="#projects">Back to projects</a><div class="im">${im(p.img,p.title)}</div><h1 style="font-size:clamp(2rem,5vw,3rem)">${p.title}</h1><div style="margin:.8rem 0 1rem">${tags(p.tags)}</div><h2>About this project</h2>${p.write.map(t=>`<p>${t}</p>`).join("")}<h2>Built with</h2>${tags(p.tools)}<p style="margin-top:1.4rem"><a class="btn pri" href="${p.repo}" target="_blank" rel="noopener">View on GitHub</a></p>`;
+}
+function route(){
+  const id = location.hash.slice(1), p = PROJECTS.find(x=>"project-"+x.id===id);
+  $("main").hidden = !!p; $("proj").hidden = !p;
+  if(p){ showProject(p); document.title = p.title+" | Joshua Chan"; scrollTo(0,0); }
+  else { document.title = "Joshua Chan | Full Stack Developer"; const el = id && $(id); el ? el.scrollIntoView() : scrollTo(0,0); }
+}
+addEventListener("hashchange", route); route();
+
+$("cf").onsubmit = e => { e.preventDefault();
+  location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Portfolio message from "+$("cn").value)}&body=${encodeURIComponent($("cm").value+"\n\nFrom: "+$("cn").value+" ("+$("ce").value+")")}`; };
+
+/* Theme: follows the device, with a manual toggle */
+const root = document.documentElement;
+try{ const s = localStorage.getItem("theme"); if(s) root.dataset.theme = s; }catch(e){}
+$("tg").onclick = () => {
+  const cur = root.dataset.theme || (matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light");
+  const nx = cur==="dark" ? "light" : "dark"; root.dataset.theme = nx;
+  try{ localStorage.setItem("theme", nx); }catch(e){}
+};
+
+/* Pixelated cursor trail */
+(()=>{ const c=$("trail"); if(matchMedia("(pointer:coarse),(prefers-reduced-motion:reduce)").matches){ c.remove(); return; }
+  const x=c.getContext("2d"), S=6; let ps=[], run=false, n=0;
+  const fit=()=>{c.width=innerWidth;c.height=innerHeight}; fit(); addEventListener("resize",fit);
+  addEventListener("mousemove",e=>{ ps.push({x:Math.floor(e.clientX/S)*S,y:Math.floor(e.clientY/S)*S,a:1,c:n++%2?"#9b0acb":"#8fb80f"}); if(ps.length>50) ps.shift(); if(!run){run=true;requestAnimationFrame(tick);} });
+  function tick(){ x.clearRect(0,0,c.width,c.height); ps.forEach(p=>{p.a-=.045;x.globalAlpha=Math.max(p.a,0);x.fillStyle=p.c;x.fillRect(p.x,p.y,S,S);}); ps=ps.filter(p=>p.a>0); ps.length?requestAnimationFrame(tick):run=false; }
+})();
+</script>
+</body>
+</html>
