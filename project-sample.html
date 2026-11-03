@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- PROJECT PAGE TEMPLATE. Copy this file to [projectname].html for each new project. -->
+  <title>Project Name | Joshua Chan</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    (function () {
+      var t = null; try { t = localStorage.getItem("theme"); } catch (e) {}
+      document.documentElement.setAttribute("data-theme", t === "light" ? "light" : "dark");
+    })();
+  </script>
+</head>
+<body data-page="works">
+
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <canvas id="flame" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">Joshua Chan</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-page-link="home">Home</a></li>
+        <li><a href="works.html" data-page-link="works">My Works</a></li>
+        <li><a href="about.html" data-page-link="about">About Me</a></li>
+        <li><a href="contact.html" data-page-link="contact">Contact Us</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="project-hero">
+      <div class="container">
+        <a href="works.html" class="back-link">← Back to My Works</a>
+        <!-- PROJECT NAME, TAGS AND YEAR. Edit here. -->
+        <h1>Sample Project</h1>
+        <p class="meta">Web app · 2026</p>
+        <div class="tags" style="margin-top: 18px;">
+          <span class="tag">React</span>
+          <span class="tag">Node.js</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top: 0;">
+      <div class="container">
+        <!-- SCREENSHOT. To use a picture, replace the div with:
+             <img class="project-image" src="images/spinawheel.png" alt="SpinAWheel screenshot" /> -->
+        <div class="project-image">Project screenshot</div>
+
+        <!-- WRITE-UP. Edit the headings and paragraphs. -->
+        <div class="project-body">
+          <h2>Overview</h2>
+          <p>
+            Replace this with a summary of the project.
+            
+          </p>
+
+          <h2>The challenge</h2>
+          <p>Describe the problem you were solving and who it was for.</p>
+
+          <h2>What I built</h2>
+          <p>Describe the key features and the decisions you made along the way.</p>
+
+          <h2>Tech used</h2>
+          <p>React, Node.js.</p>
+
+          <!-- GITHUB LINK. Replace the URL with your repository. -->
+          <div class="btn-row">
+            <a href="https://github.com/JoshuaChan2024" class="btn btn-outline" target="_blank" rel="noopener">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2026 Joshua Chan</span>
+      <span>Designed and built by Joshua Chan</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

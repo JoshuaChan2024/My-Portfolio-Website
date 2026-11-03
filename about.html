@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Me | Joshua Chan</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    (function () {
+      var t = null; try { t = localStorage.getItem("theme"); } catch (e) {}
+      document.documentElement.setAttribute("data-theme", t === "light" ? "light" : "dark");
+    })();
+  </script>
+</head>
+<body data-page="about">
+
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <canvas id="flame" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">Joshua Chan</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-page-link="home">Home</a></li>
+        <li><a href="works.html" data-page-link="works">My Works</a></li>
+        <li><a href="about.html" data-page-link="about">About Me</a></li>
+        <li><a href="contact.html" data-page-link="contact">Contact Us</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- INTRO. Edit the heading and paragraph here. -->
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">About Me</p>
+        <h1>Full stack developer, always learning.</h1>
+        <p class="lead">
+          Write a short personal introduction here: what you enjoy building, what drives you,
+          and what kind of work you're looking for.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding-top: 40px;">
+      <div class="container two-col">
+        <!-- EDUCATION AND EXPERIENCE. Copy an <li> to add an item. -->
+        <div>
+          <p class="eyebrow">Journey</p>
+          <h2>Education & experience</h2>
+          <ul class="timeline">
+            <li>
+              <strong>Diploma in Information Technology</strong>
+              <span>Republic Polytechnic · Full Stack Development · 2025 to 2027</span>
+            </li>
+            <li>
+              <strong>Freelance Full Stack Developer</strong>
+              <span>Building websites and web apps for clients</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- SKILLS. Add a <span class="skill"> per skill.
+             For an icon, add <img src="icons/name.svg" alt=""> inside the span. -->
+        <div>
+          <p class="eyebrow">Toolkit</p>
+          <h2>Skills</h2>
+          <div class="skills">
+            <span class="skill">HTML</span>
+            <span class="skill">CSS</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">React</span>
+            <span class="skill">Node.js</span>
+            <span class="skill">Firebase</span>
+            <span class="skill">Git & GitHub</span>
+            <span class="skill">ChatGPT</span>
+            <span class="skill">Gemini</span>
+            <span class="skill">Adobe Premiere Pro</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2026 Joshua Chan</span>
+      <span>Designed and built by Joshua Chan</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

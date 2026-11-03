@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Joshua Chan</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    (function () {
+      var t = null; try { t = localStorage.getItem("theme"); } catch (e) {}
+      document.documentElement.setAttribute("data-theme", t === "light" ? "light" : "dark");
+    })();
+  </script>
+</head>
+<body data-page="contact">
+
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <canvas id="flame" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">Joshua Chan</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-page-link="home">Home</a></li>
+        <li><a href="works.html" data-page-link="works">My Works</a></li>
+        <li><a href="about.html" data-page-link="about">About Me</a></li>
+        <li><a href="contact.html" data-page-link="contact">Contact Us</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Contact Us</p>
+        <h1>Let's work together.</h1>
+        <p class="lead">Have a project, a question or an opportunity? Send me a message.</p>
+      </div>
+    </section>
+
+    <section style="padding-top: 40px;">
+      <div class="container two-col">
+        <!-- FORM. Replace YOUR_FORM_ID with your Formspree ID so messages reach your email.
+             Sign up free at formspree.io. -->
+        <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <label>
+            Name
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            Message
+            <textarea name="message" required></textarea>
+          </label>
+          <div>
+            <button type="submit" class="btn">Send message</button>
+          </div>
+        </form>
+
+        <!-- SOCIAL LINKS. Replace each # with your profile URL. -->
+        <div>
+          <p class="eyebrow">Find me online</p>
+          <h2>Social links</h2>
+          <p class="lead">You can also reach me through these platforms.</p>
+          <div class="social-links">
+            <a href="https://github.com/JoshuaChan2024" class="btn btn-outline" target="_blank" rel="noopener">GitHub</a>
+            <a href="#" class="btn btn-outline" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="#" class="btn btn-outline" target="_blank" rel="noopener">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2026 Joshua Chan</span>
+      <span>Designed and built by Joshua Chan</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Works | Joshua Chan</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    (function () {
+      var t = null; try { t = localStorage.getItem("theme"); } catch (e) {}
+      document.documentElement.setAttribute("data-theme", t === "light" ? "light" : "dark");
+    })();
+  </script>
+</head>
+<body data-page="works">
+
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <canvas id="flame" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">Joshua Chan</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-page-link="home">Home</a></li>
+        <li><a href="works.html" data-page-link="works">My Works</a></li>
+        <li><a href="about.html" data-page-link="about">About Me</a></li>
+        <li><a href="contact.html" data-page-link="contact">Contact Us</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Portfolio</p>
+        <h1>My Works</h1>
+        <p class="lead">A selection of web apps and experiments I've built.</p>
+
+        <!-- DASHBOARD: counts the project cards on this page automatically. -->
+        <div class="dashboard">
+          <span class="dash-num" id="project-count">0</span>
+          <span class="dash-label">Projects showcased</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top: 0;">
+      <div class="container">
+        <!-- TOOLBAR: search bar and layout switcher (List, 2 columns, 3 columns) -->
+        <div class="toolbar">
+          <input type="search" class="search" id="search" placeholder="Search projects by name, tag or description..." aria-label="Search projects" />
+          <div class="layout-switch" role="group" aria-label="Change grid layout">
+            <button data-layout-btn="list">List</button>
+            <button data-layout-btn="two">2 Columns</button>
+            <button data-layout-btn="three">3 Columns</button>
+          </div>
+        </div>
+
+        <div class="grid" id="project-grid" data-layout="three">
+          <!-- PROJECT CARD: copy one card to add a project.
+               Change the name, description and tags. The page link goes in href. -->
+          <a href="spinawheel.html" class="card">
+            <div class="card-thumb">Project image</div>
+            <h3>SpinAWheel</h3>
+            <p>A customisable spinning wheel for picking random winners and making decisions.</p>
+            <div class="tags">
+              <span class="tag">JavaScript</span>
+              <span class="tag">CSS</span>
+            </div>
+          </a>
+
+          <a href="project-sample.html" class="card">
+            <div class="card-thumb">Project image</div>
+            <h3>Sample Project</h3>
+            <p>A short description of what this project does and the problem it solves.</p>
+            <div class="tags">
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+            </div>
+          </a>
+
+          <a href="project-sample.html" class="card">
+            <div class="card-thumb">Project image</div>
+            <h3>Another Project</h3>
+            <p>A short description of what this project does and the problem it solves.</p>
+            <div class="tags">
+              <span class="tag">HTML</span>
+              <span class="tag">Firebase</span>
+            </div>
+          </a>
+        </div>
+
+        <p id="no-results" class="no-results" hidden>No projects match your search.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2026 Joshua Chan</span>
+      <span>Designed and built by Joshua Chan</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
