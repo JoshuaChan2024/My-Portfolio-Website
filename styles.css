@@ -613,6 +613,16 @@ h3 { font-size: 1.25rem; font-weight: 600; }
 .project-body { max-width: 740px; }
 .project-body h2 { font-size: 1.6rem; margin-top: 44px; color: var(--accent); }
 .project-body p { color: var(--muted); margin-top: 12px; font-size: 1.02rem; }
+.project-body ul {
+  margin: 16px 0 0;
+  padding-left: 1.5rem;
+  color: var(--muted);
+}
+.project-body li {
+  padding-left: 0.35rem;
+  margin-bottom: 8px;
+}
+.project-body li::marker { color: var(--accent); }
 
 /* =====================================================
    ABOUT PAGE

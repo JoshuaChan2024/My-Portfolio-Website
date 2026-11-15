@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- PROJECT PAGE TEMPLATE. Copy this file to [projectname].html for each new project. -->
   <title>SpinAWheel | Joshua Chan</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../styles.css" />
   <script>
     (function () {
       var t = null; try { t = localStorage.getItem("theme"); } catch (e) {}
@@ -20,12 +20,12 @@
 
   <header class="nav">
     <div class="container nav-inner">
-      <a href="index.html" class="logo" aria-label="Joshua Chan home"><img class="logo" src="images/Logo.png" alt="Joshua Chan"></a>
+      <a href="../index.html" class="logo" aria-label="Joshua Chan home"><img class="logo" src="../images/Logo.png" alt="Joshua Chan"></a>
       <ul class="nav-links">
-        <li><a href="index.html" data-page-link="home">Home</a></li>
-        <li><a href="works.html" data-page-link="works">My Works</a></li>
-        <li><a href="about.html" data-page-link="about">About Me</a></li>
-        <li><a href="contact.html" data-page-link="contact">Contact Us</a></li>
+        <li><a href="../index.html" data-page-link="home">Home</a></li>
+        <li><a href="../works.html" data-page-link="works">My Works</a></li>
+        <li><a href="../about.html" data-page-link="about">About Me</a></li>
+        <li><a href="../contact.html" data-page-link="contact">Contact Us</a></li>
       </ul>
       <button class="theme-toggle" aria-label="Toggle dark mode"></button>
     </div>
@@ -34,10 +34,10 @@
   <main>
     <section class="project-hero">
       <div class="container">
-        <a href="works.html" class="back-link">← Back to My Works</a>
+        <a href="../works.html" class="back-link">← Back to My Works</a>
         <!-- PROJECT NAME, TAGS AND YEAR. Edit here. -->
         <h1>SpinAWheel</h1>
-        <p class="meta">Web app · 2025</p>
+        <p class="meta">Web app · 2026</p>
         <div class="tags" style="margin-top: 18px;">
           <span class="tag">JavaScript</span>
           <span class="tag">CSS</span>
@@ -48,25 +48,36 @@
     <section style="padding-top: 0;">
       <div class="container">
         <!-- SCREENSHOT. To use a picture, replace the div with:
-             <img class="project-image" src="images/spinawheel.png" alt="SpinAWheel screenshot" /> -->
-        <div class="project-image">Project screenshot</div>
+             <img class="project-image" src="../images/spinawheel.png" alt="SpinAWheel screenshot" /> -->
+        <img class="project-image" src="../images/spinawheel.png" alt="SpinAWheel screenshot" />
 
         <!-- WRITE-UP. Edit the headings and paragraphs. -->
         <div class="project-body">
-          <h2>Overview</h2>
+          <h2>Project Overview</h2>
           <p>
             SpinAWheel is a customisable spinning wheel for picking random winners, choosing
             tasks, or settling small decisions. Users add their own options and spin the wheel.
+            <br>
+            <br>
+            It was vibe-coded using ChatGPT, and later Claude.
           </p>
 
-          <h2>The challenge</h2>
-          <p>Describe the problem you were solving and who it was for.</p>
+          <h2>Key features</h2>
+          <ul>
+            <li>Add and delete members</li>
+            <li>Supports unlimited amount of members</li>
+          </ul>
 
-          <h2>What I built</h2>
-          <p>Describe the key features and the decisions you made along the way.</p>
+          <h2>My challenges</h2>
+          <p>
+            When developing the application using ChatGPT, I received vague results that did not fully meet my requirements. 
+            After switching to Claude, I used it to improve the code structure, fix errors, refine the user interface, and 
+            enhance the overall functionality of the application. It also helped polish the existing 
+            features to ensure the application worked more smoothly and aligned better with my original requirements.
+          </p>
 
-          <h2>Tech used</h2>
-          <p>JavaScript, CSS.</p>
+          <h2>Programming languages used</h2>
+          <p>HTML, JavaScript, CSS.</p>
 
           <!-- GITHUB LINK. Replace the URL with your repository. -->
           <div class="btn-row">
@@ -80,10 +91,10 @@
   <footer>
     <div class="container">
       <span>© 2026 Joshua Chan</span>
-      <span>Designed and built by Joshua Chan</span>
+      <span>Created by Joshua Chan</span>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="../script.js"></script>
 </body>
 </html>
