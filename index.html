@@ -14,6 +14,17 @@
 </head>
 <body data-page="home">
 
+  <div id="boot-intro" class="boot-intro" aria-hidden="true">
+    <div class="boot-pixels"></div>
+    <div class="boot-console">
+      <p class="boot-prompt">&gt; <span class="boot-cursor"></span></p>
+      <p class="boot-line">&gt; INITIALIZING PORTFOLIO...</p>
+      <p class="boot-line">&gt; LOADING DEVELOPER PROFILE...</p>
+      <p class="boot-line">&gt; SKILLS: HTML CSS JAVASCRIPT REACT</p>
+      <p class="boot-line">&gt; STATUS: READY</p>
+    </div>
+  </div>
+
   <!-- Background layers: star field and flame cursor trail (do not edit) -->
   <canvas id="stars" aria-hidden="true"></canvas>
   <canvas id="flame" aria-hidden="true"></canvas>
@@ -39,11 +50,29 @@
       <div class="container hero-grid">
 
         <div class="hero-text">
-          <!-- HEADLINE. Change the words in each span. -->
-          <h1>
-            <span class="hero-w1">Welcome</span>
-            <span class="hero-w2">to my</span>
-            <span class="hero-w3">Website!</span>
+          <!-- HEADLINE. Change the words in each slide. -->
+          <h1 class="hero-headline">
+            <span class="hero-slide hero-slide--intro">
+              <span class="hero-w1">Hello!</span>
+              <br>
+              <span class="hero-w2">I'm Joshua Chan</span>
+              <br>
+              <span class="hero-w3">A Passionate Developer</span>
+            </span>
+            <span class="hero-slide hero-slide--welcome">
+              <span class="hero-w4">Driven by Curiosity</span>
+              <br>
+              <span class="hero-w5">I Build Solutions</span>
+              <br>
+              <span class="hero-w6">in the Digital Space!</span>
+            </span>
+            <span class="hero-slide hero-slide--challenges">
+              <span class="hero-w7">My dreams, my learning, my skills...</span>
+              <br>
+              <span class="hero-w8">Growing through Challenges</span>
+              <br>
+              <span class="hero-w9">to become a Developer</span>
+            </span>
           </h1>
           <!-- BUTTONS. Change the labels and links. -->
           <div class="btn-row">

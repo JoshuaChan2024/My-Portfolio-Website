@@ -8,6 +8,72 @@
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* -----------------------------------------------------
+   0. HOMEPAGE STARTUP INTRO
+   Terminal text glitches into a pixel reveal.
+   ----------------------------------------------------- */
+(function () {
+  if (!document.getElementById("boot-intro")) return;
+
+  function playIntro() {
+    const currentIntro = document.getElementById("boot-intro");
+    if (!currentIntro) return;
+    if (reduceMotion) {
+      currentIntro.classList.add("is-finished");
+      return;
+    }
+
+    const intro = currentIntro.cloneNode(true);
+    const pixelLayer = intro.querySelector(".boot-pixels");
+    pixelLayer.replaceChildren();
+    intro.classList.remove("is-glitching", "is-dispersing", "is-finished");
+    currentIntro.replaceWith(intro);
+
+    const pixelSize = 48;
+    const columns = Math.ceil(window.innerWidth / pixelSize);
+    const rows = Math.ceil(window.innerHeight / pixelSize);
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const maxDistance = Math.hypot(centerX, centerY) || 1;
+
+    for (let row = 0; row < rows; row++) {
+      for (let column = 0; column < columns; column++) {
+        const x = column * pixelSize;
+        const y = row * pixelSize;
+        const width = Math.min(pixelSize, window.innerWidth - x);
+        const height = Math.min(pixelSize, window.innerHeight - y);
+        const deltaX = x + width / 2 - centerX;
+        const deltaY = y + height / 2 - centerY;
+        const distance = Math.hypot(deltaX, deltaY);
+        const travel = 90 + Math.random() * 170;
+        const direction = distance || 1;
+        const pixel = document.createElement("span");
+        const colorRoll = Math.random();
+
+        pixel.className = "boot-pixel";
+        pixel.style.left = `${x}px`;
+        pixel.style.top = `${y}px`;
+        pixel.style.width = `${width}px`;
+        pixel.style.height = `${height}px`;
+        pixel.style.setProperty("--pixel-x", `${Math.round(deltaX / direction * travel)}px`);
+        pixel.style.setProperty("--pixel-y", `${Math.round(deltaY / direction * travel)}px`);
+        pixel.style.setProperty("--pixel-delay", `${(distance / maxDistance * 0.22 + Math.random() * 0.1).toFixed(2)}s`);
+        pixel.style.setProperty("--pixel-color", colorRoll < 0.06 ? "var(--lime)" : colorRoll < 0.14 ? "var(--purple)" : "var(--boot-bg)");
+        pixelLayer.append(pixel);
+      }
+    }
+
+    window.setTimeout(() => intro.classList.add("is-glitching"), 2350);
+    window.setTimeout(() => {
+      intro.classList.remove("is-glitching");
+      intro.classList.add("is-dispersing");
+    }, 2700);
+    window.setTimeout(() => intro.classList.add("is-finished"), 3950);
+  }
+
+  window.addEventListener("pageshow", playIntro);
+})();
+
+/* -----------------------------------------------------
    1. DARK / LIGHT MODE
    Dark is the default. The choice is remembered.
    ----------------------------------------------------- */
