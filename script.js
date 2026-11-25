@@ -13,10 +13,33 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
    ----------------------------------------------------- */
 (function () {
   if (!document.getElementById("boot-intro")) return;
+  const sessionKey = "portfolioIntroPlayed";
+  let playedInDocument = false;
 
   function playIntro() {
     const currentIntro = document.getElementById("boot-intro");
     if (!currentIntro) return;
+
+    if (playedInDocument) {
+      currentIntro.classList.add("is-finished");
+      return;
+    }
+
+    playedInDocument = true;
+    let alreadyPlayed = false;
+    try {
+      alreadyPlayed = sessionStorage.getItem(sessionKey) === "true";
+    } catch (e) {}
+
+    if (alreadyPlayed) {
+      currentIntro.classList.add("is-finished");
+      return;
+    }
+
+    try {
+      sessionStorage.setItem(sessionKey, "true");
+    } catch (e) {}
+
     if (reduceMotion) {
       currentIntro.classList.add("is-finished");
       return;
@@ -62,15 +85,44 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       }
     }
 
-    window.setTimeout(() => intro.classList.add("is-glitching"), 2350);
+    window.setTimeout(() => intro.classList.add("is-glitching"), 3800);
     window.setTimeout(() => {
       intro.classList.remove("is-glitching");
       intro.classList.add("is-dispersing");
-    }, 2700);
-    window.setTimeout(() => intro.classList.add("is-finished"), 3950);
+    }, 4000);
+    window.setTimeout(() => intro.classList.add("is-finished"), 5000);
   }
 
   window.addEventListener("pageshow", playIntro);
+})();
+
+/* -----------------------------------------------------
+   BUTTON PIXEL FEEDBACK
+   Decorative particles never intercept or delay the click.
+   ----------------------------------------------------- */
+(function () {
+  if (reduceMotion) return;
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+    const control = event.target.closest("button, .btn");
+    if (!control || control.matches(":disabled")) return;
+
+    const colors = ["var(--lime)", "var(--lilac)", "var(--olive)"];
+    for (let i = 0; i < 10; i++) {
+      const pixel = document.createElement("span");
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 14 + Math.random() * 30;
+      pixel.className = "pixel-burst";
+      pixel.style.left = `${event.clientX - 3}px`;
+      pixel.style.top = `${event.clientY - 3}px`;
+      pixel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      pixel.style.setProperty("--pixel-x", `${Math.cos(angle) * distance}px`);
+      pixel.style.setProperty("--pixel-y", `${Math.sin(angle) * distance}px`);
+      pixel.addEventListener("animationend", () => pixel.remove(), { once: true });
+      document.body.append(pixel);
+    }
+  });
 })();
 
 /* -----------------------------------------------------
@@ -127,6 +179,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
    Scrolling speeds up the stars and the button gradient.
    ----------------------------------------------------- */
 let scrollBoost = 0;
+let heroScrollBoost = 0;
 (function () {
   let lastY = window.scrollY;
   let timer;
@@ -134,7 +187,8 @@ let scrollBoost = 0;
     const y = window.scrollY;
     const delta = Math.abs(y - lastY);
     lastY = y;
-    scrollBoost = Math.min(scrollBoost + delta * 0.04, 8);
+    scrollBoost = Math.min(scrollBoost + delta * 0.02, 4);
+    heroScrollBoost = Math.min(heroScrollBoost + delta * 0.04, 8);
     document.body.classList.add("is-scrolling");
     clearTimeout(timer);
     timer = setTimeout(() => document.body.classList.remove("is-scrolling"), 250);
@@ -142,17 +196,49 @@ let scrollBoost = 0;
 })();
 
 /* -----------------------------------------------------
-   4. STAR FIELD (ambient background)
-   Half the stars drift down, half drift up.
-   To change the star colours, edit STAR_COLORS.
+   4. AMBIENT PIXEL STARS AND ROTATING GRID
+   New effects are masked out of the homepage hero.
    ----------------------------------------------------- */
 (function () {
   const canvas = document.getElementById("stars");
   if (!canvas) return;
 
-  const STAR_COLORS = ["#ABD613", "#C86FFF", "#9A08CE", "#7E9C0E", "#FFFFFF"];
+  const STAR_COLORS = ["#ABD613", "#7E9C0E", "#C86FFF", "#60770B", "#2E3905", "#4E0468"];
+  const HERO_STAR_COLORS = ["#ABD613", "#C86FFF", "#9A08CE", "#7E9C0E", "#FFFFFF"];
   const ctx = canvas.getContext("2d");
-  let w, h, stars = [];
+  const homeHero = document.body.dataset.page === "home"
+    ? document.querySelector(".hero")
+    : null;
+  let w = 0;
+  let h = 0;
+  let stars = [];
+  let heroStars = [];
+  let gridRotation = 0;
+
+  function createPixelStars(count) {
+    return Array.from({ length: count }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      size: Math.random() * 2.5 + 2,
+      speed: (Math.random() * 0.38 + 0.12) * (Math.random() < 0.5 ? 1 : -1),
+      rotation: Math.random() * Math.PI * 2,
+      rotationSpeed: (Math.random() * 0.018 + 0.006) * (Math.random() < 0.5 ? 1 : -1),
+      opacity: Math.random() * 0.35 + 0.2,
+      twinkle: Math.random() * Math.PI * 2,
+      color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)],
+    }));
+  }
+
+  function createHeroStars(count) {
+    return Array.from({ length: count }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.5 + 0.5,
+      speed: (Math.random() * 0.35 + 0.12) * (Math.random() < 0.5 ? 1 : -1),
+      color: HERO_STAR_COLORS[Math.floor(Math.random() * HERO_STAR_COLORS.length)],
+      twinkle: Math.random() * Math.PI * 2,
+    }));
+  }
 
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -161,45 +247,101 @@ let scrollBoost = 0;
     canvas.width = w * dpr;
     canvas.height = h * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.min(220, Math.floor((w * h) / 9000));
-    stars = Array.from({ length: count }, () => ({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      r: Math.random() * 1.5 + 0.5,
-      speed: (Math.random() * 0.35 + 0.12) * (Math.random() < 0.5 ? 1 : -1), // + down, - up
-      color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)],
-      twinkle: Math.random() * Math.PI * 2,
-    }));
+    const count = Math.min(140, Math.max(30, Math.floor((w * h) / 15000)));
+    heroStars = homeHero
+      ? createHeroStars(Math.min(220, Math.floor((w * h) / 9000)))
+      : [];
+    stars = createPixelStars(count);
+  }
+
+  function drawGrid() {
+    const extent = Math.ceil(Math.hypot(w, h) * 1.6);
+    const halfExtent = extent / 2;
+    const spacing = 48;
+
+    ctx.save();
+    ctx.translate(w / 2, h / 2);
+    ctx.rotate(gridRotation);
+    ctx.lineWidth = 1;
+
+    ctx.beginPath();
+    for (let x = -halfExtent; x <= halfExtent; x += spacing) {
+      ctx.moveTo(x, -halfExtent);
+      ctx.lineTo(x, halfExtent);
+    }
+    ctx.globalAlpha = 0.09;
+    ctx.strokeStyle = "#60770B";
+    ctx.stroke();
+
+    ctx.beginPath();
+    for (let y = -halfExtent; y <= halfExtent; y += spacing) {
+      ctx.moveTo(-halfExtent, y);
+      ctx.lineTo(halfExtent, y);
+    }
+    ctx.globalAlpha = 0.07;
+    ctx.strokeStyle = "#4E0468";
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawHeroStars(speedMultiplier) {
+    if (!homeHero) return;
+    const rect = homeHero.getBoundingClientRect();
+
+    ctx.clearRect(rect.left, rect.top, rect.width, rect.height);
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(rect.left, rect.top, rect.width, rect.height);
+    ctx.clip();
+
+    for (const star of heroStars) {
+      star.y += star.speed * speedMultiplier;
+      if (star.y > h + 2) star.y = -2;
+      if (star.y < -2) star.y = h + 2;
+      star.twinkle += 0.02;
+      ctx.globalAlpha = (0.45 + 0.4 * Math.sin(star.twinkle)) * 0.2;
+      ctx.fillStyle = star.color;
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
   }
 
   function frame() {
     ctx.clearRect(0, 0, w, h);
-    scrollBoost *= 0.94;
+    drawGrid();
+    scrollBoost *= 0.965;
+    heroScrollBoost *= 0.94;
     const multiplier = 1 + scrollBoost;
 
-    for (const s of stars) {
-      s.y += s.speed * multiplier;
-      if (s.y > h + 2) s.y = -2;
-      if (s.y < -2) s.y = h + 2;
-      s.twinkle += 0.02;
+    for (const star of stars) {
+      star.x += star.speed * multiplier;
+      if (star.x > w + star.size) star.x = -star.size;
+      if (star.x < -star.size) star.x = w + star.size;
+      star.rotation += star.rotationSpeed;
+      star.twinkle += 0.025;
 
-      ctx.globalAlpha = 0.45 + 0.4 * Math.sin(s.twinkle);
-      ctx.fillStyle = s.color;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.save();
+      ctx.translate(star.x, star.y);
+      ctx.rotate(star.rotation);
+      ctx.globalAlpha = star.opacity * (0.8 + 0.2 * Math.sin(star.twinkle));
+      ctx.fillStyle = star.color;
+      ctx.fillRect(-star.size / 2, -star.size / 2, star.size, star.size);
+      ctx.restore();
     }
     ctx.globalAlpha = 1;
-    if (!reduceMotion) frame.id = requestAnimationFrame(frame);
+    drawHeroStars(1 + heroScrollBoost);
+
+    if (!reduceMotion) {
+      gridRotation = (gridRotation + 0.0001) % (Math.PI * 2);
+      frame.id = requestAnimationFrame(frame);
+    }
   }
 
   resize();
   window.addEventListener("resize", resize);
   frame();
-  // With reduced motion on, stop after the first static frame
-  if (reduceMotion) {
-    cancelAnimationFrame(frame.id);
-  }
 })();
 
 /* -----------------------------------------------------
